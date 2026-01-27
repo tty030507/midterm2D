@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4334677920458628061}
   - component: {fileID: 2750957705078458036}
   - component: {fileID: 2378638696391134212}
-  m_Layer: 0
+  - component: {fileID: 1800116847281355858}
+  m_Layer: 7
   m_Name: RotateKnife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,3 +142,16 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &1800116847281355858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403253054176519264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56d334d44238d2498bcad86def94b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Blade
+  damage: 0

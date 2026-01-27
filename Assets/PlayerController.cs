@@ -2,14 +2,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("设置")]
+    [Header("Stats")]
+    public float maxHp = 100f;
+    public float currentHp = 100f;
+    private float attackPower = 50f;
+    private float defensePower = 5f;
     public float moveSpeed = 5f;
-    public GameObject bulletPrefab; // 需要拖入子弹Prefab
-    public GameObject bladePrefab;  // 需要拖入飞刀Prefab
+    public GameObject bulletPrefab;
+    public GameObject bladePrefab;
 
-    [Header("环绕飞刀")]
-    public float bladeOrbitSpeed = 180f; // 旋转速度
-    public float bladeRadius = 1.5f;     // 旋转半径
+    [Header("Map Settings")]
+    public float mapHalfWidth = 20f;
+    public float mapHalfHeight = 15f;
+
+    [Header("Blade")]
+    public float bladeOrbitSpeed = 180f;
+    public float bladeRadius = 1.5f;
     private GameObject currentBlade;
     private float currentAngle;
 
@@ -17,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // 游戏开始生成一把环绕飞刀
+        currentHp = maxHp;
         if (bladePrefab != null)
         {
             currentBlade = Instantiate(bladePrefab, transform.position, Quaternion.identity);
@@ -26,13 +34,15 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // --- 1. WASD 移动 ---
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
         transform.position += moveDir * moveSpeed * Time.deltaTime;
 
-        // --- 2. 鼠标瞄准射击 (每0.5秒) ---
+        float clampedX = Mathf.Clamp(transform.position.x, -mapHalfWidth, mapHalfWidth);
+        float clampedY = Mathf.Clamp(transform.position.y, -mapHalfHeight, mapHalfHeight);
+        transform.position = new Vector3(clampedX, clampedY, 0);
+
         fireTimer += Time.deltaTime;
         if (fireTimer >= 0.5f)
         {
@@ -40,17 +50,18 @@ public class PlayerController : MonoBehaviour
             fireTimer = 0;
         }
 
-        // --- 3. 更新环绕飞刀位置 ---
         if (currentBlade != null)
         {
-            currentAngle += bladeOrbitSpeed * Time.deltaTime; // 增加角度
-            // 计算圆周运动坐标 (Cos, Sin)
+            float dynamicDamage = 10f + (attackPower * 0.5f);
+            Blade bladeScript = currentBlade.GetComponent<Blade>();
+            if (bladeScript != null) bladeScript.damage = dynamicDamage;
+
+            currentAngle += bladeOrbitSpeed * Time.deltaTime;
             float radian = currentAngle * Mathf.Deg2Rad;
             float bladeX = transform.position.x + Mathf.Cos(radian) * bladeRadius;
             float bladeY = transform.position.y + Mathf.Sin(radian) * bladeRadius;
-            
+
             currentBlade.transform.position = new Vector3(bladeX, bladeY, 0);
-            // 让飞刀自己也自转一下，满足你的需求
             currentBlade.transform.Rotate(0, 0, 360 * Time.deltaTime);
         }
     }
@@ -62,6 +73,25 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = (mousePos - transform.position).normalized;
 
         GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        b.GetComponent<Bullet>().Setup(direction);
+        Bullet bulletScript = b.GetComponent<Bullet>();
+        if (bulletScript != null)
+        {
+            float dynamicDamage = 10f + (attackPower * 0.5f);
+            bulletScript.Setup(direction, dynamicDamage);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        float finalDamage = Mathf.Max(damage - defensePower, 1f);
+        currentHp -= finalDamage;
+        Debug.Log("Player HP: " + currentHp);
+        if (currentHp <= 0) Debug.Log("Player Death");
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(Vector3.zero, new Vector3(mapHalfWidth * 2, mapHalfHeight * 2, 0));
     }
 }

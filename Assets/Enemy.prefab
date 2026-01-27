@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3652334438329680419}
   - component: {fileID: 5928666535743851344}
   - component: {fileID: 5310870377526821751}
-  m_Layer: 0
-  m_Name: Enemy1
-  m_TagString: Untagged
+  m_Layer: 6
+  m_Name: Enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,8 +116,8 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &5310870377526821751
 CircleCollider2D:

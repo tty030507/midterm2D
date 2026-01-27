@@ -1,11 +1,24 @@
 using UnityEngine;
-
+using TMPro;
 public class Enemy : MonoBehaviour
 {
-    public float hp = 15f;
+    [Header("EnemyStats")]
+    public float maxHp = 30f;
+    public float currentHp;
+    public float attackPower = 5f;
+    public float defensePower = 2f;
     public float moveSpeed = 2f;
+
+    [Header("UI")]
+    public GameObject damagePopupPrefab;
+
     private Vector3 moveDir;
     private float moveTimer;
+
+    void Start()
+    {
+        currentHp = maxHp;
+    }
 
     void Update()
     {
@@ -18,21 +31,41 @@ public class Enemy : MonoBehaviour
         transform.position += moveDir * moveSpeed * Time.deltaTime;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void TakeDamage(float incomingDamage)
     {
-        // 这里用了一种简单的方法，只要撞到的是触发器(Trigger)就扣血
-        // 之后我们可以用 Tag 来更精确地区分
-        if (other.isTrigger)
+        float finalDamage = Mathf.Max(incomingDamage - defensePower, 1f);
+        currentHp -= finalDamage;
+
+        Debug.Log(gameObject.name + " Damage Taken: " + finalDamage + "Current Health: " + currentHp);
+
+        if (damagePopupPrefab != null)
         {
-            TakeDamage(5);
-            // 如果是子弹，撞到后销毁
-            if (other.GetComponent<Bullet>() != null) Destroy(other.gameObject);
+            GameObject popup = Instantiate(damagePopupPrefab, transform.position, Quaternion.identity);
+            var textComp = popup.GetComponentInChildren<TMP_Text>();
+            if (textComp != null) textComp.text = finalDamage.ToString();
+        }
+
+        if (currentHp <= 0)
+        {
+            Die();
         }
     }
 
-    void TakeDamage(float amount)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        hp -= amount;
-        if (hp <= 0) Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.TakeDamage(this.attackPower);
+            }
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Enemy Killed");
+        Destroy(gameObject);
     }
 }
