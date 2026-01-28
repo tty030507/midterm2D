@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     [Header("EnemyStats")]
     public float maxHp = 30f;
     public float currentHp;
-    public float attackPower = 5f;
+    private float attackPower = 5f;
     public float defensePower = 2f;
     public float moveSpeed = 2f;
 

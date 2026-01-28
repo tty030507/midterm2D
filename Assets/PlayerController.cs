@@ -8,8 +8,12 @@ public class PlayerController : MonoBehaviour
     private float attackPower = 50f;
     private float defensePower = 5f;
     public float moveSpeed = 5f;
+
+    [Header("References")]
     public GameObject bulletPrefab;
     public GameObject bladePrefab;
+    public HealthBar healthBar; // 拖入挂了HealthBar脚本的Slider
+    public GameObject gameOverPanel;
 
     [Header("Map Settings")]
     public float mapHalfWidth = 20f;
@@ -22,18 +26,25 @@ public class PlayerController : MonoBehaviour
     private float currentAngle;
 
     private float fireTimer;
+    private bool isDead = false;
 
     void Start()
     {
         currentHp = maxHp;
+
+        if (healthBar != null) healthBar.SetMaxHealth(maxHp);
+
         if (bladePrefab != null)
         {
             currentBlade = Instantiate(bladePrefab, transform.position, Quaternion.identity);
         }
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
     }
 
     void Update()
     {
+        if (isDead) return;
+
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         Vector3 moveDir = new Vector3(x, y, 0).normalized;
@@ -60,7 +71,6 @@ public class PlayerController : MonoBehaviour
             float radian = currentAngle * Mathf.Deg2Rad;
             float bladeX = transform.position.x + Mathf.Cos(radian) * bladeRadius;
             float bladeY = transform.position.y + Mathf.Sin(radian) * bladeRadius;
-
             currentBlade.transform.position = new Vector3(bladeX, bladeY, 0);
             currentBlade.transform.Rotate(0, 0, 360 * Time.deltaTime);
         }
@@ -68,10 +78,10 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
+        if (bulletPrefab == null) return;
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
         Vector3 direction = (mousePos - transform.position).normalized;
-
         GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
         Bullet bulletScript = b.GetComponent<Bullet>();
         if (bulletScript != null)
@@ -83,15 +93,18 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
         float finalDamage = Mathf.Max(damage - defensePower, 1f);
         currentHp -= finalDamage;
-        Debug.Log("Player HP: " + currentHp);
-        if (currentHp <= 0) Debug.Log("Player Death");
+
+        if (healthBar != null) healthBar.SetHealth(currentHp);
+
+        if (currentHp <= 0) Die();
     }
 
-    void OnDrawGizmos()
+    void Die()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(mapHalfWidth * 2, mapHalfHeight * 2, 0));
+        isDead = true;
+        if (gameOverPanel != null) gameOverPanel.SetActive(true);
     }
 }
