@@ -12,8 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public GameObject bulletPrefab;
     public GameObject bladePrefab;
-    public HealthBar healthBar; // 拖入挂了HealthBar脚本的Slider
-    public GameObject gameOverPanel;
+    
 
     [Header("Map Settings")]
     public float mapHalfWidth = 20f;
@@ -32,13 +31,11 @@ public class PlayerController : MonoBehaviour
     {
         currentHp = maxHp;
 
-        if (healthBar != null) healthBar.SetMaxHealth(maxHp);
 
         if (bladePrefab != null)
         {
             currentBlade = Instantiate(bladePrefab, transform.position, Quaternion.identity);
         }
-        if (gameOverPanel != null) gameOverPanel.SetActive(false);
     }
 
     void Update()
@@ -91,20 +88,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
-    {
-        if (isDead) return;
-        float finalDamage = Mathf.Max(damage - defensePower, 1f);
-        currentHp -= finalDamage;
-
-        if (healthBar != null) healthBar.SetHealth(currentHp);
-
-        if (currentHp <= 0) Die();
+    public void TakeDamage(float damage) {
+        currentHp -= damage;
+        if (currentHp <= 0) {
+            Die();
+        }
     }
 
-    void Die()
-    {
-        isDead = true;
-        if (gameOverPanel != null) gameOverPanel.SetActive(true);
+    void Die() {
+        Debug.Log("玩家死亡！");
+        // 调用我们下面要写的全局管理逻辑
+        GameFlowManager.Instance.OnPlayerDeath();
+        
+        // 禁用玩家控制或播放死亡动画
+        gameObject.SetActive(false); 
     }
 }
