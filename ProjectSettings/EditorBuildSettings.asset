@@ -4,33 +4,6 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-<<<<<<< Updated upstream
-    path: Assets/Scenes/Opening Menu.unity
-    guid: 13f17085e46caff44ba6acdb526eb5c4
-  - enabled: 1
-    path: Assets/Scenes/01_OpenAnimation.unity
-    guid: 521808b2aea8d7f4397c2d2d36403269
-  - enabled: 1
-    path: Assets/Scenes/02_Level1.unity
-    guid: 976289d90dfefad49b7e1e4d558a133e
-  - enabled: 0
-    path: Assets/Scenes/03_MiddleAnimation1.unity
-    guid: fd5c8e4886fb32a4eabffd7b6ffff049
-  - enabled: 1
-    path: Assets/Scenes/03_Level2_Boss.unity
-    guid: 646d87083f5076147a9f6802dc6edbee
-  - enabled: 0
-    path: Assets/Scenes/05_MiddleAnimation2.unity
-    guid: 53c59ee6e29117145b59569165d25f9d
-  - enabled: 1
-    path: Assets/Scenes/04_Level3_Final.unity
-    guid: df90c647854ce8540b878d96fbde66b7
-=======
-    path: Assets/Scenes/Game Level 1_old.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
->>>>>>> Stashed changes
-  m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_Scenes: []
+  m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
