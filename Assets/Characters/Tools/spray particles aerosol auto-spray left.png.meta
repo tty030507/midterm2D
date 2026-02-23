@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 84dab9d9092fe0d4b9aed36098fed189
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -743414279486229236
+    second: spray particles aerosol auto-spray left_0
+  - first:
+      213: 7477632246135366221
+    second: spray particles aerosol auto-spray left_1
+  - first:
+      213: 5143965478672256870
+    second: spray particles aerosol auto-spray left_2
+  - first:
+      213: -1075118612355861226
+    second: spray particles aerosol auto-spray left_3
+  - first:
+      213: -7664302978271844726
+    second: spray particles aerosol auto-spray left_4
+  - first:
+      213: -8090695863731971949
+    second: spray particles aerosol auto-spray left_5
+  - first:
+      213: -5247252154930795503
+    second: spray particles aerosol auto-spray left_6
+  - first:
+      213: 9209676264926963805
+    second: spray particles aerosol auto-spray left_7
+  - first:
+      213: 7715066538572732760
+    second: spray particles aerosol auto-spray left_8
+  - first:
+      213: -3602418552864762538
+    second: spray particles aerosol auto-spray left_9
+  - first:
+      213: 6346869805548737182
+    second: spray particles aerosol auto-spray left_10
+  - first:
+      213: 5398526041455070013
+    second: spray particles aerosol auto-spray left_11
+  - first:
+      213: 2087211115752179675
+    second: spray particles aerosol auto-spray left_12
+  - first:
+      213: -2832008816901874276
+    second: spray particles aerosol auto-spray left_13
+  - first:
+      213: 6803146655493845079
+    second: spray particles aerosol auto-spray left_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 704
+        width: 207
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c05354ec6acdea5f0800000000000000
+      internalID: -743414279486229236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_1
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 0
+        width: 851
+        height: 1019
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42a7efd8e2e5c760800000000000000
+      internalID: 7477632246135366221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_2
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 656
+        width: 83
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66fc1255959036740800000000000000
+      internalID: 5143965478672256870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_3
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 695
+        width: 119
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6153e1b71596411f0800000000000000
+      internalID: -1075118612355861226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_4
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 679
+        width: 83
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8663296c0de2a590800000000000000
+      internalID: -7664302978271844726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_5
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 472
+        width: 123
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39898807af218bf80800000000000000
+      internalID: -8090695863731971949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_6
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 575
+        width: 98
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11c627a57f30e27b0800000000000000
+      internalID: -5247252154930795503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_7
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 495
+        width: 149
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d58615b94c75fcf70800000000000000
+      internalID: 9209676264926963805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_8
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 248
+        width: 138
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8595122042c611b60800000000000000
+      internalID: 7715066538572732760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_9
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 344
+        width: 183
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6551830a963a10ec0800000000000000
+      internalID: -3602418552864762538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_10
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 375
+        width: 83
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e929263067c941850800000000000000
+      internalID: 6346869805548737182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_11
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 217
+        width: 82
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3b00a305da6bea40800000000000000
+      internalID: 5398526041455070013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_12
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 239
+        width: 109
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd7c7a5837347fc10800000000000000
+      internalID: 2087211115752179675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_13
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 7
+        width: 31
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d1ac35cfea2b8d0800000000000000
+      internalID: -2832008816901874276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spray particles aerosol auto-spray left_14
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 750f89ba6d1a96e50800000000000000
+      internalID: 6803146655493845079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spray particles aerosol auto-spray left_0: -743414279486229236
+      spray particles aerosol auto-spray left_1: 7477632246135366221
+      spray particles aerosol auto-spray left_10: 6346869805548737182
+      spray particles aerosol auto-spray left_11: 5398526041455070013
+      spray particles aerosol auto-spray left_12: 2087211115752179675
+      spray particles aerosol auto-spray left_13: -2832008816901874276
+      spray particles aerosol auto-spray left_14: 6803146655493845079
+      spray particles aerosol auto-spray left_2: 5143965478672256870
+      spray particles aerosol auto-spray left_3: -1075118612355861226
+      spray particles aerosol auto-spray left_4: -7664302978271844726
+      spray particles aerosol auto-spray left_5: -8090695863731971949
+      spray particles aerosol auto-spray left_6: -5247252154930795503
+      spray particles aerosol auto-spray left_7: 9209676264926963805
+      spray particles aerosol auto-spray left_8: 7715066538572732760
+      spray particles aerosol auto-spray left_9: -3602418552864762538
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
