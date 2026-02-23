@@ -194,6 +194,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5047716}
   m_CullTransparentMesh: 1
+--- !u!1 &476728095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 476728097}
+  - component: {fileID: 476728096}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &476728096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476728095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56f1b54e84fa7d41963bba92550eedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelController
+  levelDuration: 180
+  creepPrefab: {fileID: 8321747232150372099, guid: f9cb3419e9d67464a923fff03ceed76b, type: 3}
+  bossPrefab: {fileID: 0}
+--- !u!4 &476728097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476728095}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 100.74908, y: 64.89987, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +977,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1174983298}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c77f04c6f2a7b0498a6c09277107a20, type: 3}
+  m_Script: {fileID: 11500000, guid: f73c307cf22935c4998889e1a66cf66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   maxHp: 100
@@ -938,8 +985,6 @@ MonoBehaviour:
   moveSpeed: 5
   bulletPrefab: {fileID: 6701111340854672415, guid: d6ae444e6bed80340b813cc70b1e913e, type: 3}
   bladePrefab: {fileID: 4403253054176519264, guid: 06789ac2c708f4e4795687fc9156b123, type: 3}
-  healthBar: {fileID: 1591134220}
-  gameOverPanel: {fileID: 0}
   mapHalfWidth: 20
   mapHalfHeight: 15
   bladeOrbitSpeed: 180
@@ -1045,6 +1090,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1513480794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1513480795}
+  - component: {fileID: 1513480796}
+  m_Layer: 0
+  m_Name: GameFlowManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1513480795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513480794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 100.74908, y: 64.89987, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1513480796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513480794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f48b128849818e343a563cc6f7cf2e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameFlowManager
 --- !u!1 &1591134216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1234,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1591134216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d3fb0193b968941b17d83fedc4166b, type: 3}
+  m_Script: {fileID: 11500000, guid: 756dcdcfcd8066c4594cd1c4ba68d048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthBar
   slider: {fileID: 1591134219}
@@ -1341,3 +1430,5 @@ SceneRoots:
   - {fileID: 9218421933604992583}
   - {fileID: 1008344281}
   - {fileID: 1260001991}
+  - {fileID: 1513480795}
+  - {fileID: 476728097}
