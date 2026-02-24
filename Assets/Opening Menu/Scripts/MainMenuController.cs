@@ -1,32 +1,38 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // 必须有这一行才能管理场景切换
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    // 这个方法必须是 public，否则按钮在 Inspector 里找不到它
-    public void StartGame()
+    [Header("UI Panels")]
+    public GameObject mainMenuPanel;      // 拖入你的主菜单面板
+    public GameObject levelSelectionPanel; // 拖入你的选关面板
+
+    // 当点击主菜单的 "Select Level" 按钮时调用
+    public void OpenLevelSelection()
     {
-        // 这里的 "Level1" 必须和你组员准备好的地图场景文件名完全一致
-        SceneManager.LoadScene("01_OpenAnimation"); 
+        mainMenuPanel.SetActive(false);      // 隐藏主菜单
+        levelSelectionPanel.SetActive(true); // 显示选关菜单
     }
-    public void Level1()
+
+    // 当点击选关菜单里的 "Back" 按钮时调用 (可选)
+    public void BackToMainMenu()
     {
-        // 这里的 "Level1" 必须和你组员准备好的地图场景文件名完全一致
-        SceneManager.LoadScene("01_OpenAnimation"); 
+        mainMenuPanel.SetActive(true);
+        levelSelectionPanel.SetActive(false);
     }
-    public void Level2()
-    {
-        // 这里的 "Level1" 必须和你组员准备好的地图场景文件名完全一致
-        SceneManager.LoadScene("03_Level2_Boss"); 
-    }
-    public void Level3()
-    {
-        // 这里的 "Level1" 必须和你组员准备好的地图场景文件名完全一致
-        SceneManager.LoadScene("04_Level3_Final"); 
-    }
+
+    // --- 以下是原本的场景跳转逻辑 ---
+    public void StartGame() { SceneManager.LoadScene("01_OpenAnimation"); }
+    
+    public void Level1() { SceneManager.LoadScene("02_Level1"); } // 确保名称和 Build Profiles 一致
+    
+    public void Level2() { SceneManager.LoadScene("03_Level2_Boss"); }
+    
+    public void Level3() { SceneManager.LoadScene("04_Level3_Final"); }
+
     public void QuitGame()
     {
-        Debug.Log("Game is exiting..."); // 在编辑器里测试时会看到这条日志
-        Application.Quit(); // 仅在导出的游戏程序中有效
+        Debug.Log("Game is exiting...");
+        Application.Quit();
     }
 }

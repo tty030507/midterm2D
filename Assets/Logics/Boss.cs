@@ -1,60 +1,46 @@
 using UnityEngine;
 using TMPro;
-public class Enemy : MonoBehaviour
+public class Boss : MonoBehaviour
 {
     [Header("EnemyStats")]
-    public float maxHp = 30f;
+    public float maxHp = 200f;
     public float currentHp;
-    private float attackPower = 10f;
+    private float attackPower = 5f;
     public float defensePower = 2f;
-    public float moveSpeed = 3f;
+    public float moveSpeed = 2f;
+    public float spitdamage=30f;
+    public float dashdamage=50f;
+
+    [Header("UI")]
+    public GameObject damagePopupPrefab;
     [Header("Sprites")]
     public Sprite leftSprite;  // 在 Inspector 拖入 rat_left.png
     public Sprite rightSprite; // 在 Inspector 拖入 rat_right.png
     
     public Sprite upSprite;  // 在 Inspector 拖入 rat_left.png
     public Sprite downSprite; // 在 Inspector 拖入 rat_right.png
-    private SpriteRenderer spriteRenderer;
-    private Transform player;
-    [Header("UI")]
-    public GameObject damagePopupPrefab;
-    private Transform playerTransform; // 存储玩家的位置引用
 
+    public Sprite spitSprite; // 在 Inspector 拖入 rat_right.png
+
+    public Sprite dashSprite; // 在 Inspector 拖入 rat_right.png
+    private Vector3 moveDir;
+    private float moveTimer;
 
     void Start()
     {
         currentHp = maxHp;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            playerTransform = player.transform;
-        }
     }
 
     void Update()
-{
-    if (playerTransform != null)
     {
-        Vector3 diff = playerTransform.position - transform.position;
-        
-        // 优化：通过比较 X 和 Y 的距离差来决定显示哪个方向，避免逻辑卡死
-        if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
+        moveTimer -= Time.deltaTime;
+        if (moveTimer <= 0)
         {
-            spriteRenderer.sprite = diff.x > 0 ? rightSprite : leftSprite;
+            moveDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
+            moveTimer = 2f;
         }
-        else
-        {
-            spriteRenderer.sprite = diff.y > 0 ? upSprite : downSprite;
-        }
-
-        // 移动逻辑
-        Vector3 direction = diff.normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // 重要：删掉所有关于 localScale 的代码，防止图片镜像消失！
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
     }
-}
 
     public void TakeDamage(float incomingDamage)
     {
