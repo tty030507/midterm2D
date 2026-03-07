@@ -194,6 +194,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5047716}
   m_CullTransparentMesh: 1
+--- !u!1 &417067378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417067379}
+  m_Layer: 0
+  m_Name: WeaponHoldPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417067379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417067378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.67, y: -1.31, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1784702909}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &476728095
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +591,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &638556840 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7610621419076958732, guid: b4983eb8485a2684e930eed7a07ee1cd, type: 3}
+  m_PrefabInstance: {fileID: 1354625388595173190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &989826375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,9 +1502,10 @@ MonoBehaviour:
   leftSprite: {fileID: -3151985773540895183, guid: 2c5317f2b2d46a446b229b2e752bb846, type: 3}
   rightSprite: {fileID: -7145984894993698149, guid: dfbc68a6db370934eb8b5827804355cd, type: 3}
   currentWeapon: 0
-  aerosolEffect: {fileID: 0}
-  glueEffect: {fileID: 0}
-  gasEffect: {fileID: 0}
+  aerosolEffect: {fileID: 4187596623289285108}
+  glueEffect: {fileID: 638556840}
+  gasEffect: {fileID: 21432427791892868}
+  weaponHoldPoint: {fileID: 0}
 --- !u!58 &1784702906
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1602,7 +1639,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 417067379}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1784702910
@@ -1657,9 +1695,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSpawner
   weaponPrefabs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 4187596623289285108}
+  - {fileID: 638556840}
+  - {fileID: 21432427791892868}
   mapHalfWidth: 20
   mapHalfHeight: 15
 --- !u!4 &1825483318
@@ -1921,6 +1959,18 @@ PrefabInstance:
       value: 9.14
       objectReference: {fileID: 0}
     - target: {fileID: 3809012018430518014, guid: a94d811f9806aaf44b4f9df050be3883, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809012018430518014, guid: a94d811f9806aaf44b4f9df050be3883, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809012018430518014, guid: a94d811f9806aaf44b4f9df050be3883, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809012018430518014, guid: a94d811f9806aaf44b4f9df050be3883, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1241.0426
       objectReference: {fileID: 0}
@@ -1965,6 +2015,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a94d811f9806aaf44b4f9df050be3883, type: 3}
+--- !u!1 &21432427791892868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1182542375060536180, guid: a94d811f9806aaf44b4f9df050be3883, type: 3}
+  m_PrefabInstance: {fileID: 21432427791892867}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1354625388595173190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1984,6 +2039,18 @@ PrefabInstance:
     - target: {fileID: 7610621419076958732, guid: b4983eb8485a2684e930eed7a07ee1cd, type: 3}
       propertyPath: m_Name
       value: GluePickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670141851954798991, guid: b4983eb8485a2684e930eed7a07ee1cd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670141851954798991, guid: b4983eb8485a2684e930eed7a07ee1cd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7670141851954798991, guid: b4983eb8485a2684e930eed7a07ee1cd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7670141851954798991, guid: b4983eb8485a2684e930eed7a07ee1cd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2040,15 +2107,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2332572488169620552, guid: c43fa108167b199409448868eb2c1b1f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2332572488169620552, guid: c43fa108167b199409448868eb2c1b1f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2332572488169620552, guid: c43fa108167b199409448868eb2c1b1f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2332572488169620552, guid: c43fa108167b199409448868eb2c1b1f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2099,6 +2166,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c43fa108167b199409448868eb2c1b1f, type: 3}
+--- !u!1 &4187596623289285108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9045644183199850106, guid: c43fa108167b199409448868eb2c1b1f, type: 3}
+  m_PrefabInstance: {fileID: 4187596623289285107}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

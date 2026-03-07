@@ -41,6 +41,12 @@ public class PlayerController : MonoBehaviour
     public GameObject glueEffect;
     public GameObject gasEffect;
 
+    [Header("Weapon System")]
+    public Transform weaponHoldPoint;
+
+    private GameObject currentWeaponObject;
+    private float weaponTimer;
+
     void Start()
     {
         currentHp = maxHp;
@@ -95,6 +101,16 @@ public class PlayerController : MonoBehaviour
         // 刀刃自身的旋转也可以跟着变快
         currentBlade.transform.Rotate(0, 0, dynamicOrbitSpeed * 2 * Time.deltaTime);
     }
+        if (currentWeaponObject != null)
+        {
+            weaponTimer -= Time.deltaTime;
+
+            if (weaponTimer <= 0)
+            {
+                Destroy(currentWeaponObject);
+                currentWeapon = WeaponType.Default;
+            }
+        }
     }
     void HandleSpriteFlip(float x, float y)
     {
@@ -177,5 +193,22 @@ public class PlayerController : MonoBehaviour
     public void SetWeapon(WeaponType newWeapon)
     {
         currentWeapon = newWeapon;
+    }
+
+    public void SetWeapon(WeaponType newWeapon, GameObject weaponObj, float duration)
+    {
+        currentWeapon = newWeapon;
+
+        if (currentWeaponObject != null)
+        {
+            Destroy(currentWeaponObject);
+        }
+
+        currentWeaponObject = weaponObj;
+
+        weaponObj.transform.SetParent(weaponHoldPoint);
+        weaponObj.transform.localPosition = Vector3.zero;
+
+        weaponTimer = duration;
     }
 }

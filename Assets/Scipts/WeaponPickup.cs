@@ -3,6 +3,7 @@ using UnityEngine;
 public class WeaponPickup : MonoBehaviour
 {
     public WeaponType weaponType;
+    public float weaponDuration = 8f;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -10,8 +11,7 @@ public class WeaponPickup : MonoBehaviour
 
         if (player != null)
         {
-            player.SetWeapon(weaponType);
-            Destroy(gameObject);
+            player.SetWeapon(weaponType, gameObject, weaponDuration);
         }
     }
 }
