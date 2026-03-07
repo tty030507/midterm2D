@@ -44,8 +44,18 @@ public class PlayerController : MonoBehaviour
     [Header("Weapon System")]
     public Transform weaponHoldPoint;
 
+    [Header("Weapon Sounds")]
+    public AudioClip defaultShotClip;
+    public AudioClip aerosolShotClip;
+    public AudioClip glueShotClip;
+    public AudioClip gasShotClip;
+    private AudioSource audioSource;
+
     private GameObject currentWeaponObject;
     private float weaponTimer;
+
+    private float shootSoundTimer = 0f;
+    public float shootSoundInterval = 0.2f; // минимальный интервал между звуками
 
     void Start()
     {
@@ -59,6 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             currentBlade = Instantiate(bladePrefab, transform.position, Quaternion.identity);
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -111,6 +122,7 @@ public class PlayerController : MonoBehaviour
                 currentWeapon = WeaponType.Default;
             }
         }
+        shootSoundTimer -= Time.deltaTime;
     }
     void HandleSpriteFlip(float x, float y)
     {
@@ -145,27 +157,37 @@ public class PlayerController : MonoBehaviour
         // Определяем урон для текущего оружия
         float dynamicDamage = 5f; // по умолчанию для Default
         GameObject effect = null;
+        AudioClip clipToPlay = null;
 
         switch (currentWeapon)
         {
             case WeaponType.Default:
+                clipToPlay = defaultShotClip;
                 dynamicDamage = 5f;
                 break;
 
             case WeaponType.Aerosol:
+                clipToPlay = aerosolShotClip;
                 dynamicDamage = 5f;
                 effect = aerosolEffect;
                 break;
 
             case WeaponType.GlueFoam:
+                clipToPlay = glueShotClip;
                 dynamicDamage = 10f;
                 effect = glueEffect;
                 break;
 
             case WeaponType.Gas:
+                clipToPlay = gasShotClip;
                 dynamicDamage = 15f;
                 effect = gasEffect;
                 break;
+        }
+        if (clipToPlay != null && shootSoundTimer <= 0f)
+        {
+            audioSource.PlayOneShot(clipToPlay, 1f);
+            shootSoundTimer = shootSoundInterval; // сброс таймера
         }
 
         // Настраиваем пулю
