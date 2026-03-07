@@ -132,10 +132,22 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         if (bulletPrefab == null) return;
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
+
         Vector3 direction = (mousePos - transform.position).normalized;
+
         GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
+        Bullet bulletScript = b.GetComponent<Bullet>();
+
+        if (bulletScript != null)
+        {
+            float dynamicDamage = 10f + (attackPower * 0.5f);
+            bulletScript.Setup(direction, dynamicDamage);
+        }
+
         GameObject effect = null;
 
         switch (currentWeapon)
@@ -155,13 +167,19 @@ public class PlayerController : MonoBehaviour
 
         if (effect != null)
         {
-            Instantiate(effect, b.transform.position, Quaternion.identity, b.transform);
-        }
-        Bullet bulletScript = b.GetComponent<Bullet>();
-        if (bulletScript != null)
-        {
-            float dynamicDamage = 10f + (attackPower * 0.5f);
-            bulletScript.Setup(direction, dynamicDamage);
+            // отключаем квадратный спрайт
+            SpriteRenderer bulletSprite = b.GetComponent<SpriteRenderer>();
+            if (bulletSprite != null)
+            {
+                bulletSprite.enabled = false;
+            }
+
+            // создаём визуальный эффект
+            GameObject e = Instantiate(effect, b.transform);
+            e.transform.localPosition = Vector3.zero;
+
+            // устанавливаем scale по X,Y,Z = 1
+            e.transform.localScale = new Vector3(0.8f, 0.3f, 0.3f);
         }
     }
 
