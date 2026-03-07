@@ -1508,9 +1508,9 @@ MonoBehaviour:
   gasEffect: {fileID: 3321446142075820710, guid: b2fc5791caa664e4b81f48db560c72b1, type: 3}
   weaponHoldPoint: {fileID: 417067379}
   defaultShotClip: {fileID: 8300000, guid: 5a167af99acadd94187225b9247ab8e2, type: 3}
-  aerosolShotClip: {fileID: 8300000, guid: 5a167af99acadd94187225b9247ab8e2, type: 3}
+  aerosolShotClip: {fileID: 8300000, guid: 83e1a709fe4969b4298c9236faf9a203, type: 3}
   glueShotClip: {fileID: 8300000, guid: dc8e691ceaa2f6d4ab208436dd686e92, type: 3}
-  gasShotClip: {fileID: 8300000, guid: 5a167af99acadd94187225b9247ab8e2, type: 3}
+  gasShotClip: {fileID: 8300000, guid: 08c67830442d6a443867f6af0cb55f80, type: 3}
   shootSoundInterval: 0.5
 --- !u!58 &1784702906
 CircleCollider2D:
