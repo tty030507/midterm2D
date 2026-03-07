@@ -142,44 +142,52 @@ public class PlayerController : MonoBehaviour
 
         Bullet bulletScript = b.GetComponent<Bullet>();
 
-        if (bulletScript != null)
-        {
-            float dynamicDamage = 10f + (attackPower * 0.5f);
-            bulletScript.Setup(direction, dynamicDamage);
-        }
-
+        // Определяем урон для текущего оружия
+        float dynamicDamage = 5f; // по умолчанию для Default
         GameObject effect = null;
 
         switch (currentWeapon)
         {
+            case WeaponType.Default:
+                dynamicDamage = 5f;
+                break;
+
             case WeaponType.Aerosol:
+                dynamicDamage = 5f;
                 effect = aerosolEffect;
                 break;
 
             case WeaponType.GlueFoam:
+                dynamicDamage = 10f;
                 effect = glueEffect;
                 break;
 
             case WeaponType.Gas:
+                dynamicDamage = 15f;
                 effect = gasEffect;
                 break;
         }
 
+        // Настраиваем пулю
+        if (bulletScript != null)
+        {
+            bulletScript.Setup(direction, dynamicDamage);
+        }
+
+        // Если есть эффект оружия, добавляем визуальный
         if (effect != null)
         {
-            // отключаем квадратный спрайт
+            // отключаем спрайт пули
             SpriteRenderer bulletSprite = b.GetComponent<SpriteRenderer>();
             if (bulletSprite != null)
             {
                 bulletSprite.enabled = false;
             }
 
-            // создаём визуальный эффект
+            // создаём эффект
             GameObject e = Instantiate(effect, b.transform);
             e.transform.localPosition = Vector3.zero;
-
-            // устанавливаем scale по X,Y,Z = 1
-            e.transform.localScale = new Vector3(0.8f, 0.3f, 0.3f);
+            e.transform.localScale = new Vector3(0.95f, 0.25f, 0.3f); // масштаб эффекта
         }
     }
 
