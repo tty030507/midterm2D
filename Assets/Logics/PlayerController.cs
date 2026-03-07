@@ -32,6 +32,15 @@ public class PlayerController : MonoBehaviour
     public Sprite leftSprite;
     public Sprite rightSprite;
     private SpriteRenderer sr;
+
+    [Header("Weapon")]
+    public WeaponType currentWeapon = WeaponType.Default;
+
+    [Header("Weapon Effects")]
+    public GameObject aerosolEffect;
+    public GameObject glueEffect;
+    public GameObject gasEffect;
+
     void Start()
     {
         currentHp = maxHp;
@@ -111,6 +120,27 @@ public class PlayerController : MonoBehaviour
         mousePos.z = 0;
         Vector3 direction = (mousePos - transform.position).normalized;
         GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject effect = null;
+
+        switch (currentWeapon)
+        {
+            case WeaponType.Aerosol:
+                effect = aerosolEffect;
+                break;
+
+            case WeaponType.GlueFoam:
+                effect = glueEffect;
+                break;
+
+            case WeaponType.Gas:
+                effect = gasEffect;
+                break;
+        }
+
+        if (effect != null)
+        {
+            Instantiate(effect, b.transform.position, Quaternion.identity, b.transform);
+        }
         Bullet bulletScript = b.GetComponent<Bullet>();
         if (bulletScript != null)
         {
@@ -142,5 +172,10 @@ public class PlayerController : MonoBehaviour
         
         // 禁用玩家控制或播放死亡动画
         gameObject.SetActive(false); 
+    }
+
+    public void SetWeapon(WeaponType newWeapon)
+    {
+        currentWeapon = newWeapon;
     }
 }
