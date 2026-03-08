@@ -16,13 +16,13 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
-        currentHp = maxHp;
+        currentHp = maxHp; //
         GameObject barObj = GameObject.Find("BossHealthBar");
         if (barObj != null)
         {
-            barObj.SetActive(true); // Show the bar when boss spawns
+            barObj.SetActive(true);
             bossHealthBar = barObj.GetComponent<HealthBar>();
-            bossHealthBar.SetMaxHealth(maxHp); //
+            bossHealthBar.SetMaxHealth(maxHp);
         }
     }
 
@@ -67,8 +67,19 @@ public class Boss : MonoBehaviour
     void Die()
     {
         Debug.Log("Boss Defeated!");
-        // Trigger next level or win screen
-        GameFlowManager.Instance.LoadNextStep();
+
+        // Find the VictoryManager in the scene
+        VictoryManager vm = Object.FindFirstObjectByType<VictoryManager>();
+        if (vm != null)
+        {
+            vm.ShowVictory();
+        }
+        else
+        {
+            // Fallback to your existing logic if no UI is found
+            GameFlowManager.Instance.LoadNextStep();
+        }
+
         Destroy(gameObject);
     }
 }
