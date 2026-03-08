@@ -5,8 +5,8 @@ public class PlayerController : MonoBehaviour
     [Header("Stats")]
     public float maxHp = 100f;
     public float currentHp = 100f;
-    private float attackPower = 1f;
-    private float defensePower = 5f;
+    public float attackPower = 1f;
+    public float defensePower = 5f;
     public float moveSpeed = 5f;
 
     [Header("References")]
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private float fireTimer;
     private bool isDead = false;
-[Header("Sprites (四方向)")]
+    [Header("Sprites (四方向)")]
     public Sprite upSprite;
     public Sprite downSprite;
     public Sprite leftSprite;
@@ -61,14 +61,35 @@ public class PlayerController : MonoBehaviour
     private float shootSoundTimer = 0f;
     public float shootSoundInterval = 0.2f; // минимальный интервал между звуками
 
+    [Header("Level System")]
+    public LevelUpManager levelUpManager;
+    public UnityEngine.UI.Slider expSlider;
+    public TMPro.TextMeshProUGUI levelText;
+    public AudioClip levelUpClip;
+    public int level = 1;
+    public float currentExp = 0;
+    public float expToNextLevel = 50;
+
     void Start()
     {
         currentHp = maxHp;
         sr = GetComponent<SpriteRenderer>(); // 获取渲染组件
-        if (healthBar != null) 
+        if (healthBar != null)
         {
             healthBar.SetMaxHealth(maxHp);
         }
+
+        if (levelText != null)
+        {
+            levelText.text = "LVL " + level; // Sets it to LVL 1 immediately
+        }
+
+        if (expSlider != null)
+        {
+            expSlider.maxValue = expToNextLevel;
+            expSlider.value = currentExp; // Sets bar to 0
+        }
+
         if (bladePrefab != null)
         {
             currentBlade = Instantiate(bladePrefab, transform.position, Quaternion.identity);
@@ -90,7 +111,7 @@ public class PlayerController : MonoBehaviour
         float clampedY = Mathf.Clamp(transform.position.y, -mapHalfHeight, mapHalfHeight);
         transform.position = new Vector3(clampedX, clampedY, 0);
 
-        float currentFireInterval = Mathf.Lerp(0.5f, 0.1f, progress); 
+        float currentFireInterval = Mathf.Lerp(0.5f, 0.1f, progress);
         fireTimer += Time.deltaTime;
         if (fireTimer >= currentFireInterval)
         {
@@ -99,23 +120,23 @@ public class PlayerController : MonoBehaviour
         }
 
         if (currentBlade != null)
-    {
-        // 初始速度 180，最快增加到 720 (每秒转2圈)
-        float dynamicOrbitSpeed = Mathf.Lerp(180f, 720f, progress);
-        
-        float dynamicDamage = 10f + (attackPower * 0.5f);
-        Blade bladeScript = currentBlade.GetComponent<Blade>();
-        if (bladeScript != null) bladeScript.damage = dynamicDamage;
+        {
+            // 初始速度 180，最快增加到 720 (每秒转2圈)
+            float dynamicOrbitSpeed = Mathf.Lerp(180f, 720f, progress);
 
-        currentAngle += dynamicOrbitSpeed * Time.deltaTime;
-        float radian = currentAngle * Mathf.Deg2Rad;
-        float bladeX = transform.position.x + Mathf.Cos(radian) * bladeRadius;
-        float bladeY = transform.position.y + Mathf.Sin(radian) * bladeRadius;
-        currentBlade.transform.position = new Vector3(bladeX, bladeY, 0);
-        
-        // 刀刃自身的旋转也可以跟着变快
-        currentBlade.transform.Rotate(0, 0, dynamicOrbitSpeed * 2 * Time.deltaTime);
-    }
+            float dynamicDamage = 10f + (attackPower * 0.5f);
+            Blade bladeScript = currentBlade.GetComponent<Blade>();
+            if (bladeScript != null) bladeScript.damage = dynamicDamage;
+
+            currentAngle += dynamicOrbitSpeed * Time.deltaTime;
+            float radian = currentAngle * Mathf.Deg2Rad;
+            float bladeX = transform.position.x + Mathf.Cos(radian) * bladeRadius;
+            float bladeY = transform.position.y + Mathf.Sin(radian) * bladeRadius;
+            currentBlade.transform.position = new Vector3(bladeX, bladeY, 0);
+
+            // 刀刃自身的旋转也可以跟着变快
+            currentBlade.transform.Rotate(0, 0, dynamicOrbitSpeed * 2 * Time.deltaTime);
+        }
         if (currentWeaponObject != null)
         {
             weaponTimer -= Time.deltaTime;
@@ -149,75 +170,63 @@ public class PlayerController : MonoBehaviour
     {
         if (bulletPrefab == null) return;
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0;
-
-        Vector3 direction = (mousePos - transform.position).normalized;
-
+        // We no longer need mouse position or direction here
         GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
         Bullet bulletScript = b.GetComponent<Bullet>();
 
-        // Определяем урон для текущего оружия
-        float dynamicDamage = 5f; // по умолчанию для Default
+        float dynamicDamage = 5f;
         GameObject effect = null;
         AudioClip clipToPlay = null;
 
+        // Keep your weapon switch logic to determine damage and sound
         switch (currentWeapon)
         {
             case WeaponType.Default:
                 clipToPlay = defaultShotClip;
                 dynamicDamage = 5f;
                 break;
-
             case WeaponType.Aerosol:
                 clipToPlay = aerosolShotClip;
                 dynamicDamage = 5f;
                 effect = aerosolEffect;
                 break;
-
             case WeaponType.GlueFoam:
                 clipToPlay = glueShotClip;
                 dynamicDamage = 10f;
                 effect = glueEffect;
                 break;
-
             case WeaponType.Gas:
                 clipToPlay = gasShotClip;
                 dynamicDamage = 15f;
                 effect = gasEffect;
                 break;
         }
+
         if (clipToPlay != null && shootSoundTimer <= 0f)
         {
             audioSource.PlayOneShot(clipToPlay, 1f);
-            shootSoundTimer = shootSoundInterval; // сброс таймера
+            shootSoundTimer = shootSoundInterval;
         }
 
-        // Настраиваем пулю
         if (bulletScript != null)
         {
-            bulletScript.Setup(direction, dynamicDamage);
+            // Pass Vector3.zero for direction since the bullet handles its own aim
+            bulletScript.Setup(Vector3.zero, dynamicDamage);
         }
 
-        // Если есть эффект оружия, добавляем визуальный
         if (effect != null)
         {
-            // отключаем спрайт пули
             SpriteRenderer bulletSprite = b.GetComponent<SpriteRenderer>();
-            if (bulletSprite != null)
-            {
-                bulletSprite.enabled = false;
-            }
+            if (bulletSprite != null) bulletSprite.enabled = false;
 
-            // создаём эффект
             GameObject e = Instantiate(effect, b.transform);
             e.transform.localPosition = Vector3.zero;
-            e.transform.localScale = new Vector3(0.95f, 0.25f, 0.3f); // масштаб эффекта
+            e.transform.localScale = new Vector3(0.95f, 0.25f, 0.3f);
         }
     }
 
-    public void TakeDamage(float damage) 
+    public void TakeDamage(float damage)
     {
         currentHp -= damage;
 
@@ -227,7 +236,7 @@ public class PlayerController : MonoBehaviour
             healthBar.SetHealth(currentHp);
         }
 
-        if (currentHp <= 0) 
+        if (currentHp <= 0)
         {
             Die();
         }
@@ -273,5 +282,61 @@ public class PlayerController : MonoBehaviour
         weaponObj.transform.localPosition = Vector3.zero;
 
         weaponTimer = duration;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // The string "EXP" here must match the tag you created in Unity exactly
+        if (other.CompareTag("EXP"))
+        {
+            GainExp(10f);
+            Destroy(other.gameObject);
+            Debug.Log("Collected EXP! Current: " + currentExp);
+        }
+    }
+
+    void GainExp(float amount)
+    {
+        currentExp += amount;
+
+        if (expSlider != null)
+        {
+            expSlider.maxValue = expToNextLevel;
+            expSlider.value = currentExp;
+        }
+
+        if (currentExp >= expToNextLevel)
+        {
+            LevelUp();
+        }
+    }
+
+    void LevelUp()
+    {
+        level++;
+        currentExp = 0;
+        expToNextLevel *= 1.2f;
+        currentHp = maxHp;
+        if (healthBar != null) healthBar.SetMaxHealth(maxHp);
+
+        if (expSlider != null)
+        {
+            expSlider.maxValue = expToNextLevel; // Set new "Full" point
+            expSlider.value = 0; // Move handle back to 0
+        }
+        // Play the level up sound
+        if (levelUpClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(levelUpClip, 1f);
+        }
+
+        if (levelText != null) levelText.text = "LVL " + level; //
+        if (levelUpClip != null) audioSource.PlayOneShot(levelUpClip);
+
+        // Trigger the UI instead of automatic stat gains
+        if (levelUpManager != null)
+        {
+            levelUpManager.ShowUpgradeOptions();
+        }
     }
 }

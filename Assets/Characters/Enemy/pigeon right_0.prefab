@@ -114,6 +114,7 @@ MonoBehaviour:
   upSprite: {fileID: 8133131972221194074, guid: 54c5e30b7993c2b40be74475c464cb8e, type: 3}
   downSprite: {fileID: 583764635166810072, guid: b70b6b49f5da38448b5ec2f776494427, type: 3}
   damagePopupPrefab: {fileID: 0}
+  expPrefab: {fileID: 214650112822691447, guid: f65753b78588826458ccf73c09a400e3, type: 3}
 --- !u!114 &-2537999228684782293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +136,7 @@ MonoBehaviour:
   upSprite: {fileID: 8133131972221194074, guid: 54c5e30b7993c2b40be74475c464cb8e, type: 3}
   downSprite: {fileID: 583764635166810072, guid: b70b6b49f5da38448b5ec2f776494427, type: 3}
   damagePopupPrefab: {fileID: 0}
+  expPrefab: {fileID: 0}
 --- !u!58 &-2764210375371459847
 CircleCollider2D:
   m_ObjectHideFlags: 0

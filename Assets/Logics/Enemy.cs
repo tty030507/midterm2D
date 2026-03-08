@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     private float attackPower = 10f;
     public float defensePower = 2f;
     public float moveSpeed = 3f;
+    
     [Header("Sprites")]
     public Sprite leftSprite;  // 在 Inspector 拖入 rat_left.png
     public Sprite rightSprite; // 在 Inspector 拖入 rat_right.png
@@ -20,6 +21,8 @@ public class Enemy : MonoBehaviour
     public GameObject damagePopupPrefab;
     private Transform playerTransform; // 存储玩家的位置引用
 
+    [Header("Loot")]
+    public GameObject expPrefab;
 
     void Start()
     {
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        
+
         if (playerTransform != null)
         {
             Vector3 diff = playerTransform.position - transform.position;
@@ -95,6 +98,10 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        if (expPrefab != null)
+        {
+            Instantiate(expPrefab, transform.position, Quaternion.identity);
+        }
         Debug.Log("Enemy Killed");
         Destroy(gameObject);
     }
