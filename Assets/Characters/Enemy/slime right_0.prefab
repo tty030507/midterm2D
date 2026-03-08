@@ -113,7 +113,6 @@ MonoBehaviour:
   upSprite: {fileID: 3078054269066861607, guid: ece71a1ead004454e8ad7438479020e6, type: 3}
   downSprite: {fileID: -3070197895704959009, guid: ae52205862355c341b8682d4e9e181b1, type: 3}
   damagePopupPrefab: {fileID: 0}
-  expPrefab: {fileID: 214650112822691447, guid: f65753b78588826458ccf73c09a400e3, type: 3}
 --- !u!58 &-9186894052860985361
 CircleCollider2D:
   m_ObjectHideFlags: 0
