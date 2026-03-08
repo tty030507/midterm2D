@@ -1511,6 +1511,8 @@ MonoBehaviour:
   aerosolShotClip: {fileID: 8300000, guid: 83e1a709fe4969b4298c9236faf9a203, type: 3}
   glueShotClip: {fileID: 8300000, guid: dc8e691ceaa2f6d4ab208436dd686e92, type: 3}
   gasShotClip: {fileID: 8300000, guid: 08c67830442d6a443867f6af0cb55f80, type: 3}
+  damageClip: {fileID: 8300000, guid: 679639af9bad475428a07136d394499e, type: 3}
+  deathClip: {fileID: 8300000, guid: bd2fa99d94e17bd41af3fd1945032a79, type: 3}
   shootSoundInterval: 0.5
 --- !u!58 &1784702906
 CircleCollider2D:

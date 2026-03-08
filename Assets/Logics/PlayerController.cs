@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
     public AudioClip gasShotClip;
     private AudioSource audioSource;
 
+    [Header("Damage & Death Sounds")]
+    public AudioClip damageClip;
+    public AudioClip deathClip;
+
     private GameObject currentWeaponObject;
     private float weaponTimer;
 
@@ -227,15 +231,26 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+        if (damageClip != null)
+        {
+            audioSource.PlayOneShot(damageClip, 1f);
+        }
     }
 
-    void Die() {
-        Debug.Log("玩家死亡！");
-        // 调用我们下面要写的全局管理逻辑
+    void Die()
+    {
+        Debug.Log("Игрок умер!");
+
         GameFlowManager.Instance.OnPlayerDeath();
-        
-        // 禁用玩家控制或播放死亡动画
-        gameObject.SetActive(false); 
+
+        if (deathClip != null)
+        {
+            // проигрываем звук в позиции игрока, независимо от объекта
+            AudioSource.PlayClipAtPoint(deathClip, transform.position, 1f);
+        }
+
+        // теперь можно деактивировать объект
+        gameObject.SetActive(false);
     }
 
     public void SetWeapon(WeaponType newWeapon)
