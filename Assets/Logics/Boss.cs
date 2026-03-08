@@ -1,45 +1,29 @@
 using UnityEngine;
 using TMPro;
+
 public class Boss : MonoBehaviour
 {
-    [Header("EnemyStats")]
-    public float maxHp = 200f;
+    [Header("Boss Stats")]
+    public float maxHp = 200f; // Bosses have much higher HP than regular enemies
     public float currentHp;
-    private float attackPower = 5f;
-    public float defensePower = 2f;
-    public float moveSpeed = 2f;
-    public float spitdamage=30f;
-    public float dashdamage=50f;
+    public float defensePower = 5f;
+    public float contactDamage = 20f;
 
-    [Header("UI")]
+    [Header("UI & Effects")]
     public GameObject damagePopupPrefab;
-    [Header("Sprites")]
-    public Sprite leftSprite;  // 在 Inspector 拖入 rat_left.png
-    public Sprite rightSprite; // 在 Inspector 拖入 rat_right.png
-    
-    public Sprite upSprite;  // 在 Inspector 拖入 rat_left.png
-    public Sprite downSprite; // 在 Inspector 拖入 rat_right.png
-
-    public Sprite spitSprite; // 在 Inspector 拖入 rat_right.png
-
-    public Sprite dashSprite; // 在 Inspector 拖入 rat_right.png
-    private Vector3 moveDir;
-    private float moveTimer;
+    [Header("UI Reference")]
+    private HealthBar bossHealthBar;
 
     void Start()
     {
         currentHp = maxHp;
-    }
-
-    void Update()
-    {
-        moveTimer -= Time.deltaTime;
-        if (moveTimer <= 0)
+        GameObject barObj = GameObject.Find("BossHealthBar");
+        if (barObj != null)
         {
-            moveDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
-            moveTimer = 2f;
+            barObj.SetActive(true); // Show the bar when boss spawns
+            bossHealthBar = barObj.GetComponent<HealthBar>();
+            bossHealthBar.SetMaxHealth(maxHp); //
         }
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
     }
 
     public void TakeDamage(float incomingDamage)
@@ -47,14 +31,20 @@ public class Boss : MonoBehaviour
         float finalDamage = Mathf.Max(incomingDamage - defensePower, 1f);
         currentHp -= finalDamage;
 
-        Debug.Log(gameObject.name + " Damage Taken: " + finalDamage + "Current Health: " + currentHp);
+        if (bossHealthBar != null)
+        {
+            bossHealthBar.SetHealth(currentHp);
+        }
 
+        // Show damage numbers using your existing prefab logic
         if (damagePopupPrefab != null)
         {
             GameObject popup = Instantiate(damagePopupPrefab, transform.position, Quaternion.identity);
             var textComp = popup.GetComponentInChildren<TMP_Text>();
             if (textComp != null) textComp.text = finalDamage.ToString();
         }
+
+        // if (bossHealthBar != null) bossHealthBar.SetHealth(currentHp);
 
         if (currentHp <= 0)
         {
@@ -69,14 +59,16 @@ public class Boss : MonoBehaviour
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.TakeDamage(this.attackPower);
+                player.TakeDamage(contactDamage);
             }
         }
     }
 
     void Die()
     {
-        Debug.Log("Enemy Killed");
+        Debug.Log("Boss Defeated!");
+        // Trigger next level or win screen
+        GameFlowManager.Instance.LoadNextStep();
         Destroy(gameObject);
     }
 }

@@ -1,2 +1,19 @@
 fileFormatVersion: 2
 guid: fc1912d94a375e745b47102628d45a05
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - damagePopupPrefab: {instanceID: 0}
+  - leftSprite: {fileID: -3522968359629025176, guid: a7ac41aa73506224aaad0356aaf3be79, type: 3}
+  - rightSprite: {fileID: 8206243018296931535, guid: 26b1a3619123a9e4689a5bd49085369a, type: 3}
+  - upSprite: {fileID: -4230746810596121546, guid: 429fb565c5cf90e4f9fb0f7061c2e6c5, type: 3}
+  - downSprite: {fileID: 4036859274522186503, guid: 2a489839eaad5ef44ba5b7c0fa290e0e, type: 3}
+  - spitSprite: {fileID: 1731883316960051664, guid: eb28bf99c690fb6429ecff22b6d7ae85, type: 3}
+  - dashSprite: {fileID: 2305517949656033767, guid: 90bf843f0a04e9f4eb06079ce5b033c3, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

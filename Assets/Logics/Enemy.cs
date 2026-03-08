@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     [Header("Sprites")]
     public Sprite leftSprite;  // 在 Inspector 拖入 rat_left.png
     public Sprite rightSprite; // 在 Inspector 拖入 rat_right.png
-    
+
     public Sprite upSprite;  // 在 Inspector 拖入 rat_left.png
     public Sprite downSprite; // 在 Inspector 拖入 rat_right.png
     private SpriteRenderer spriteRenderer;
@@ -33,28 +33,33 @@ public class Enemy : MonoBehaviour
     }
 
     void Update()
-{
-    if (playerTransform != null)
     {
-        Vector3 diff = playerTransform.position - transform.position;
+        if (GetComponent<BossAI>() != null && GetComponent<BossAI>().currentState != BossState.Chasing)
+        {
+            return;
+        }
         
-        // 优化：通过比较 X 和 Y 的距离差来决定显示哪个方向，避免逻辑卡死
-        if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
+        if (playerTransform != null)
         {
-            spriteRenderer.sprite = diff.x > 0 ? rightSprite : leftSprite;
-        }
-        else
-        {
-            spriteRenderer.sprite = diff.y > 0 ? upSprite : downSprite;
-        }
+            Vector3 diff = playerTransform.position - transform.position;
 
-        // 移动逻辑
-        Vector3 direction = diff.normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+            // 优化：通过比较 X 和 Y 的距离差来决定显示哪个方向，避免逻辑卡死
+            if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
+            {
+                spriteRenderer.sprite = diff.x > 0 ? rightSprite : leftSprite;
+            }
+            else
+            {
+                spriteRenderer.sprite = diff.y > 0 ? upSprite : downSprite;
+            }
 
-        // 重要：删掉所有关于 localScale 的代码，防止图片镜像消失！
+            // 移动逻辑
+            Vector3 direction = diff.normalized;
+            transform.position += direction * moveSpeed * Time.deltaTime;
+
+            // 重要：删掉所有关于 localScale 的代码，防止图片镜像消失！
+        }
     }
-}
 
     public void TakeDamage(float incomingDamage)
     {
