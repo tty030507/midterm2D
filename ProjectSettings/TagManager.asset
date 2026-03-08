@@ -7,7 +7,6 @@ TagManager:
   - Enemy
   - UI
   - Boss
-  - EXP
   layers:
   - Default
   - TransparentFX
