@@ -32,6 +32,35 @@ public class PlayerController : MonoBehaviour
     public Sprite leftSprite;
     public Sprite rightSprite;
     private SpriteRenderer sr;
+
+    [Header("Weapon")]
+    public WeaponType currentWeapon = WeaponType.Default;
+
+    [Header("Weapon Effects")]
+    public GameObject aerosolEffect;
+    public GameObject glueEffect;
+    public GameObject gasEffect;
+
+    [Header("Weapon System")]
+    public Transform weaponHoldPoint;
+
+    [Header("Weapon Sounds")]
+    public AudioClip defaultShotClip;
+    public AudioClip aerosolShotClip;
+    public AudioClip glueShotClip;
+    public AudioClip gasShotClip;
+    private AudioSource audioSource;
+
+    [Header("Damage & Death Sounds")]
+    public AudioClip damageClip;
+    public AudioClip deathClip;
+
+    private GameObject currentWeaponObject;
+    private float weaponTimer;
+
+    private float shootSoundTimer = 0f;
+    public float shootSoundInterval = 0.2f; // минимальный интервал между звуками
+
     void Start()
     {
         currentHp = maxHp;
@@ -44,6 +73,7 @@ public class PlayerController : MonoBehaviour
         {
             currentBlade = Instantiate(bladePrefab, transform.position, Quaternion.identity);
         }
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -86,6 +116,17 @@ public class PlayerController : MonoBehaviour
         // 刀刃自身的旋转也可以跟着变快
         currentBlade.transform.Rotate(0, 0, dynamicOrbitSpeed * 2 * Time.deltaTime);
     }
+        if (currentWeaponObject != null)
+        {
+            weaponTimer -= Time.deltaTime;
+
+            if (weaponTimer <= 0)
+            {
+                Destroy(currentWeaponObject);
+                currentWeapon = WeaponType.Default;
+            }
+        }
+        shootSoundTimer -= Time.deltaTime;
     }
     void HandleSpriteFlip(float x, float y)
     {
@@ -107,15 +148,72 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         if (bulletPrefab == null) return;
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = 0;
+
         Vector3 direction = (mousePos - transform.position).normalized;
+
         GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+
         Bullet bulletScript = b.GetComponent<Bullet>();
+
+        // Определяем урон для текущего оружия
+        float dynamicDamage = 5f; // по умолчанию для Default
+        GameObject effect = null;
+        AudioClip clipToPlay = null;
+
+        switch (currentWeapon)
+        {
+            case WeaponType.Default:
+                clipToPlay = defaultShotClip;
+                dynamicDamage = 5f;
+                break;
+
+            case WeaponType.Aerosol:
+                clipToPlay = aerosolShotClip;
+                dynamicDamage = 5f;
+                effect = aerosolEffect;
+                break;
+
+            case WeaponType.GlueFoam:
+                clipToPlay = glueShotClip;
+                dynamicDamage = 10f;
+                effect = glueEffect;
+                break;
+
+            case WeaponType.Gas:
+                clipToPlay = gasShotClip;
+                dynamicDamage = 15f;
+                effect = gasEffect;
+                break;
+        }
+        if (clipToPlay != null && shootSoundTimer <= 0f)
+        {
+            audioSource.PlayOneShot(clipToPlay, 1f);
+            shootSoundTimer = shootSoundInterval; // сброс таймера
+        }
+
+        // Настраиваем пулю
         if (bulletScript != null)
         {
-            float dynamicDamage = 10f + (attackPower * 0.5f);
             bulletScript.Setup(direction, dynamicDamage);
+        }
+
+        // Если есть эффект оружия, добавляем визуальный
+        if (effect != null)
+        {
+            // отключаем спрайт пули
+            SpriteRenderer bulletSprite = b.GetComponent<SpriteRenderer>();
+            if (bulletSprite != null)
+            {
+                bulletSprite.enabled = false;
+            }
+
+            // создаём эффект
+            GameObject e = Instantiate(effect, b.transform);
+            e.transform.localPosition = Vector3.zero;
+            e.transform.localScale = new Vector3(0.95f, 0.25f, 0.3f); // масштаб эффекта
         }
     }
 
@@ -133,14 +231,47 @@ public class PlayerController : MonoBehaviour
         {
             Die();
         }
+        if (damageClip != null)
+        {
+            audioSource.PlayOneShot(damageClip, 1f);
+        }
     }
 
-    void Die() {
-        Debug.Log("玩家死亡！");
-        // 调用我们下面要写的全局管理逻辑
+    void Die()
+    {
+        Debug.Log("Игрок умер!");
+
         GameFlowManager.Instance.OnPlayerDeath();
-        
-        // 禁用玩家控制或播放死亡动画
-        gameObject.SetActive(false); 
+
+        if (deathClip != null)
+        {
+            // проигрываем звук в позиции игрока, независимо от объекта
+            AudioSource.PlayClipAtPoint(deathClip, transform.position, 1f);
+        }
+
+        // теперь можно деактивировать объект
+        gameObject.SetActive(false);
+    }
+
+    public void SetWeapon(WeaponType newWeapon)
+    {
+        currentWeapon = newWeapon;
+    }
+
+    public void SetWeapon(WeaponType newWeapon, GameObject weaponObj, float duration)
+    {
+        currentWeapon = newWeapon;
+
+        if (currentWeaponObject != null)
+        {
+            Destroy(currentWeaponObject);
+        }
+
+        currentWeaponObject = weaponObj;
+
+        weaponObj.transform.SetParent(weaponHoldPoint);
+        weaponObj.transform.localPosition = Vector3.zero;
+
+        weaponTimer = duration;
     }
 }
